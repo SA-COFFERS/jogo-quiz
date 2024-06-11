@@ -8,7 +8,6 @@
 </head>
 <body>
     <div class="background-container">
-        
         <div class="background">
             <div id="quiz-container">
                 <div id="question-container">
@@ -20,7 +19,13 @@
                         <button class="btn">Answer 4</button>
                     </div>
                 </div>
-                <button id="next-btn" class="next-btn btn hide">Proximo</button>
+                <div class="next-btn-container">
+                    <button id="next-btn" class="next-btn btn hide">Próximo</button>
+                </div>
+                <div id="final-score-container" class="hide">
+                    <span id="final-score"></span>
+                    <button id="restart-btn" class="btn" onclick="startGame()">Reiniciar</button>
+                </div>
             </div>
         </div>
     </div>

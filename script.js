@@ -4,7 +4,7 @@ const questions = [
         answers: [
             { text: 'Porque ensina as pessoas a dirigirem de maneira segura.', correct: true },
             { text: 'É útil apenas para novos motoristas e não para os experientes.', correct: false },
-            { text: 'A educação no trânsito é irelevante porque todos os motoristas são naturalmente peritos em dirigir.', correct: false },
+            { text: 'A educação no trânsito é irrelevante porque todos os motoristas são naturalmente peritos em dirigir.', correct: false },
             { text: 'Ensina os motoristas a ignorarem as regras de trânsito.', correct: false }
         ]
     },
@@ -14,7 +14,7 @@ const questions = [
             { text: 'Orienta e regula o fluxo de veículos e pedestres, aumentando a segurança.', correct: true },
             { text: 'Ajuda a decorar as ruas com cores vibrantes.', correct: false },
             { text: 'Confunde os motoristas para reduzir a velocidade.', correct: false },
-            { text: 'A sinalização de trânsito é irelevante, pois os motoristas sabem agir no trânsito.”', correct: false }
+            { text: 'A sinalização de trânsito é irrelevante, pois os motoristas sabem agir no trânsito.', correct: false }
         ]
     },
     {
@@ -23,7 +23,7 @@ const questions = [
             { text: 'Infração de trânsito é o valor em dinheiro que se paga por violar as regras de trânsito.', correct: false },
             { text: 'Infração de trânsito é o ato de desrespeitar as regras de trânsito, e a multa é a penalidade financeira aplicada como consequência.', correct: true },
             { text: 'Multa é o ato de desrespeitar as regras de trânsito, como exceder a velocidade.', correct: false },
-            { text: 'A infração é desreispeitar as leis de trânsito, a multa  é uma notificação do governo. ', correct: false }
+            { text: 'A infração é desrespeitar as leis de trânsito, a multa é uma notificação do governo.', correct: false }
         ]
     },
     {
@@ -49,6 +49,9 @@ const questions = [
 const questionElement = document.getElementById('question');
 const answerButtonsElement = document.getElementById('answer-buttons');
 const nextButton = document.getElementById('next-btn');
+const finalScoreContainer = document.getElementById('final-score-container');
+const finalScoreElement = document.getElementById('final-score');
+const restartButton = document.getElementById('restart-btn');
 
 let currentQuestionIndex = 0;
 let score = 0;
@@ -57,6 +60,7 @@ function startGame() {
     currentQuestionIndex = 0;
     score = 0;
     nextButton.classList.add('hide');
+    finalScoreContainer.classList.add('hide');
     showQuestion(questions[currentQuestionIndex]);
 }
 
@@ -87,10 +91,9 @@ function selectAnswer(e) {
     if (questions.length > currentQuestionIndex + 1) {
         nextButton.classList.remove('hide');
     } else {
-        nextButton.innerText = `Pontuação Final: ${score} / ${questions.length}`;
-        nextButton.classList.remove('hide');
-        nextButton.removeEventListener('click', handleNextButton);
-        nextButton.addEventListener('click', startGame);
+        nextButton.classList.add('hide');
+        finalScoreElement.innerText = `Pontuação Final: ${score} / ${questions.length}`;
+        finalScoreContainer.classList.remove('hide');
     }
 }
 
@@ -115,5 +118,12 @@ function handleNextButton() {
 }
 
 nextButton.addEventListener('click', handleNextButton);
+restartButton.addEventListener('click', startGame);
 
 startGame();
+
+function resetPage() {
+    location.reload();
+}
+
+document.getElementById('resetButton').addEventListener('click', resetPage);
