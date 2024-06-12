@@ -82,11 +82,18 @@ function showQuestion(question) {
 function selectAnswer(e) {
     const selectedButton = e.target;
     const correct = selectedButton.dataset.correct === 'true';
+    Array.from(answerButtonsElement.children).forEach(button => {
+        clearStatusClass(button);
+    });
     if (correct) {
         score++;
     }
-    Array.from(answerButtonsElement.children).forEach(button => {
-        setStatusClass(button, button.dataset.correct === 'true');
+    setStatusClass(selectedButton, correct);
+    questions[currentQuestionIndex].answers.forEach(answer => {
+        if (answer.correct) {
+            const correctButton = Array.from(answerButtonsElement.children).find(button => button.innerText === answer.text);
+            setStatusClass(correctButton, true);
+        }
     });
     if (questions.length > currentQuestionIndex + 1) {
         nextButton.classList.remove('hide');
@@ -121,9 +128,3 @@ nextButton.addEventListener('click', handleNextButton);
 restartButton.addEventListener('click', startGame);
 
 startGame();
-
-function resetPage() {
-    location.reload();
-}
-
-document.getElementById('resetButton').addEventListener('click', resetPage);
